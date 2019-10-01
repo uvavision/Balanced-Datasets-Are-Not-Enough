@@ -7,6 +7,14 @@ In this work, we present a framework to measure and mitigate intrinsic biases wi
 ### Requirements
 
 ### Data
+* COCO
+  1. Download images and annotations(2014) from [coco](http://cocodataset.org/#download)
+  2. Create soft links in [data](./object_multilabel/data) folder:
+  ```
+  ln -s /path/to/annotations annotations_pytorch
+  ln -s /path/to/train_images train2014
+  ln -s /path/to/val_test_images val2014 
+  ```
 
 ### Demo instructions
 
