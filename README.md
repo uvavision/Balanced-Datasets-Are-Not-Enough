@@ -16,8 +16,14 @@ In this work, we present a framework to measure and mitigate intrinsic biases wi
   ```
   ln -s /path/to/annotations annotations_pytorch
   ln -s /path/to/train_images train2014
-  ln -s /path/to/val_test_images val2014 
+  ln -s /path/to/val_test_images val2014
   ```
+* imSitu
+  1. Download images from [imSitu](http://imsitu.org/download/)
+  2. Create soft link in [data](./verb_classification/data) folder:
+   ```
+   ln -s /path/to/images of500_images_resized
+   ```
 
 ### Demo instructions
 * COCO
