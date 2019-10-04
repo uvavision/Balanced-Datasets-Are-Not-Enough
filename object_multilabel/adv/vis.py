@@ -39,7 +39,7 @@ class UnNormalize(object):
         for t, m, s in zip(tensor, self.mean, self.std):
             t.mul_(s).add_(m)
         return tensor
-    
+
 normalize = transforms.Normalize(mean = [0.485, 0.456, 0.406],
             std = [0.229, 0.224, 0.225])
 transf = transforms.Compose([UnNormalize(normalize.mean, normalize.std),
@@ -124,7 +124,7 @@ def main():
     args.adv_on = True
     args.adv_conv = True
     args.no_avgpool = False
-    adv_model_path = os.path.join('/localtmp/tw8cb/experiments/gender_bias/cvpr2019/coco/autoencoder/models', args.exp_id)
+    adv_model_path = os.path.join('./models', args.exp_id)
     adv_model = ObjectMultiLabelAdv(args, args.num_object, args.adv_capacity, args.adv_dropout, args.adv_lambda).cuda()
 
     if os.path.isfile(os.path.join(adv_model_path, 'checkpoint.pth.tar')):
@@ -145,20 +145,20 @@ def main():
             image_dir = args.image_dir,split = 'test', transform = test_transform)
     test_loader = torch.utils.data.DataLoader(test_data, batch_size = 16, \
             shuffle = False, num_workers = 4,pin_memory = True)
-    
+
     save_dir = os.path.join('./sample_images/auto_debias', args.exp_id+'_'+str(checkpoint['epoch']))
     if not os.path.exists(save_dir): os.makedirs(save_dir)
-    
+
     results = list()
     for batch_idx, (images, targets, genders, image_ids) in enumerate(test_loader):
         if batch_idx == 10: break # constrain epoch size
         images = images.cuda()
-        
+
         # save original images
         for i in range(len(images)):
             image = transf(images[i].clone().cpu())
             image.save('./sample_images/origin/{}.jpg'.format(image_ids[i].item()))
-        
+
         # Forward, Backward and Optimizer
         task_pred, adv_pred, encoded_images = adv_model(images)
         for i in range(len(encoded_images)):
@@ -169,7 +169,7 @@ def main():
                            'original_image_path': './origin/{}.jpg'.format(imageID),
                            'auto_debias_image_path': './auto_debias/{}/{}.jpg'.format( \
                            args.exp_id+'_'+str(checkpoint['epoch']), imageID)})
-    # render result        
+    # render result
     import jinja2
     templateLoader = jinja2.FileSystemLoader(searchpath='.')
     templateEnv = jinja2.Environment(loader = templateLoader)
