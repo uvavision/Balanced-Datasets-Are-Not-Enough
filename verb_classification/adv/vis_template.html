@@ -1,0 +1,21 @@
+<html>
+<head>
+<title> Generated Images {{exp_id}}</title>
+</head>
+<body>
+<h3>Generated Images {{exp_id}}</h3>
+<table border>
+{% for item in results %}
+<tr>
+<td>{{item.imageID}}</td>
+<td>
+<img src="{{item.original_image_path}}" width="320"/>
+</td>
+<td>
+<img src="{{item.auto_debias_image_path}}" width="320"/>
+</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

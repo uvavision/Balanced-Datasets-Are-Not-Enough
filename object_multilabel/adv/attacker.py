@@ -279,10 +279,7 @@ def main():
             #import pdb
             #pdb.set_trace()
 
-            if feature_type == 'image_feature':
-                attacker = GenderClassifier(args, 2048)
-            else:
-                attacker = GenderClassifier(args, args.num_object)
+            attacker = GenderClassifier(args, args.num_object)
 
             attacker = attacker.cuda()
 
@@ -354,13 +351,7 @@ def epoch_pass(epoch, data_loader, attacker, encoder, optimizer, training, featu
 
     for ind, (targets, genders, image_ids, potentials) in enumerate(data_loader):
 
-        if feature_type =='image_feature':
-            features = image_features.float().cuda()
-        elif feature_type =='potential':
-            features = potentials.float().cuda()
-        else:
-            print('Please specify feature type')
-            return
+        features = potentials.float().cuda()
 
         adv_pred = attacker(features)
         loss = F.cross_entropy(adv_pred, genders.cuda().max(1, keepdim=False)[1], reduction='elementwise_mean')
