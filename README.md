@@ -27,11 +27,11 @@ In this work, we present a framework to measure and mitigate intrinsic biases wi
 
 ### Demo instructions
 * COCO
-  * compute dataset_leakage:
+  * compute dataset_leakage(\lambda_D):
   ```
   CUDA_VISIBLE_DEVICES=5 python dataset_leakage.py --num_epochs 100 --learning_rate 0.00005 --batch_size 128 --num_rounds 5 --no_image
   ```
-  * compute natural leakage:
+  * compute dataset leakage(\lambad_D(a)):
   ```
   CUDA_VISIBLE_DEVICES=5 python natural_leakage.py --num_rounds 5 --num_epochs 100 --learning_rate 0.00005 --batch_size 128 --no_image
   ```
