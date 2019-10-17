@@ -29,7 +29,6 @@ from ae_adv_model import UnetGenerator, get_norm_layer, VerbClassificationAdv
 verb_id_map = pickle.load(open('../data/verb_id.map'))
 verb2id = verb_id_map['verb2id']
 id2verb = verb_id_map['id2verb']
-gender_ratios = pickle.load(open('../data/gender_ratios.p'))
 
 class UnNormalize(object):
     def __init__(self, mean, std):
@@ -121,7 +120,7 @@ def main():
             help='attacker learning rate')
 
     args = parser.parse_args()
-    
+
     test_transform = transforms.Compose([
         transforms.Resize(args.image_size),
         transforms.CenterCrop(args.crop_size),
@@ -150,7 +149,7 @@ def main():
             image_dir = args.image_dir,split = 'test', transform = test_transform)
     test_loader = torch.utils.data.DataLoader(test_data, batch_size = args.batch_size, \
             shuffle = False, num_workers = 4,pin_memory = True)
-    
+
     save_dir = os.path.join('./sample_images/auto_debias', args.exp_id+'_'+str(checkpoint['epoch']))
     if not os.path.exists(save_dir): os.makedirs(save_dir)
 

@@ -28,7 +28,6 @@ from logger import Logger
 verb_id_map = pickle.load(open('../data/verb_id.map'))
 verb2id = verb_id_map['verb2id']
 id2verb = verb_id_map['id2verb']
-gender_ratios = pickle.load(open('../data/gender_ratios.p'))
 
 def main():
     parser = argparse.ArgumentParser()

@@ -28,7 +28,6 @@ from logger import Logger
 object_id_map = pickle.load(open('../data/object_id.map'))
 object2id = object_id_map['object2id']
 id2object = object_id_map['id2object']
-gender_ratios = pickle.load(open('../data/gender_ratios.p'))
 
 def main():
     parser = argparse.ArgumentParser()
