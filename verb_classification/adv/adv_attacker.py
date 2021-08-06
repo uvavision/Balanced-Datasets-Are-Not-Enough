@@ -37,7 +37,7 @@ def generate_image_feature(split, image_features_path, data_loader, encoder):
 
     for ind, (images_, targets_, genders_, image_ids_) in enumerate(data_loader):
         images_ = images_.cuda()
-        image_features, preds = encoder(images_)
+        preds, adv_preds = encoder(images_)
         potentials.append(preds.detach().cpu())
         targets.append(targets_.cpu())
         genders.append(genders_.cpu())
